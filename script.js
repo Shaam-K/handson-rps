@@ -26,28 +26,14 @@ function genBotMove() {
   
     if(randomNum < 0.33) {
       botInput = 'rock';
+      botImage = 'images/rock-emoji.png';
     } else if (randomNum < 0.66) {
       botInput = 'paper';
+      botImage = 'images/paper-emoji.png';
     } else {
       botInput = 'scissor';
+      botImage = 'images/scissors-emoji.png';
     }
-  
-    return botInput;
-}
-
-function findBotImage(botInput) {
-    if (botInput == 'rock') {
-        return 'images/rock-emoji.png'
-    }
-
-    if (botInput == 'paper') {
-        return 'images/paper-emoji.png'
-    }
-
-    if (botInput == 'scissor') {
-        return 'images/scissors-emoji.png'
-    }
-    
 }
 
 function findWinner(user,bot) {
@@ -58,14 +44,14 @@ function findWinner(user,bot) {
         scoreBoard.ties++;
     }
 
-    if (user != bot) {
+    else {
         if (user == 'rock') {
             if (bot == 'scissor') {
                 showStatus.innerHTML = "You won!";
                 scoreBoard.wins++;
             }
 
-            if (bot == 'paper') {
+            else {
                 showStatus.innerHTML = "You lost!";
                 scoreBoard.losses++;
             }
@@ -79,7 +65,7 @@ function findWinner(user,bot) {
             }
 
 
-            if (bot == 'scissor') {
+            else {
                 showStatus.innerHTML = "You lost!";
                 scoreBoard.losses++;
             }
@@ -91,7 +77,7 @@ function findWinner(user,bot) {
                 scoreBoard.wins++;
             } 
 
-            if (bot == 'rock') {
+            else {
                 showStatus.innerHTML = "You lost!";
                 scoreBoard.losses++;
             }
@@ -105,8 +91,7 @@ window.addEventListener('keydown', (event) => {
     if (event.key == 1) {
         userInput = 'rock';
         userImage = 'images/rock-emoji.png'
-        botInput = genBotMove();
-        botImage = findBotImage(botInput);
+        genBotMove();
 
         findWinner(userInput, botInput);
     }
@@ -114,8 +99,7 @@ window.addEventListener('keydown', (event) => {
     if (event.key == 2) {
         userInput = 'paper';
         userImage = 'images/paper-emoji.png';
-        botInput = genBotMove();
-        botImage = findBotImage(botInput);
+        genBotMove();
 
         findWinner(userInput, botInput);
     }
@@ -124,9 +108,8 @@ window.addEventListener('keydown', (event) => {
     if (event.key == 3) {
         userInput = 'scissor';
         userImage = 'images/scissors-emoji.png';
-        botInput = genBotMove();
-        botImage = findBotImage(botInput);
-
+        genBotMove();
+        
         findWinner(userInput, botInput);
     }
 })
