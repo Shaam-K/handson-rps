@@ -5,9 +5,6 @@ let botImage = '';
 let showGame = document.querySelector('.moves');
 let showStatus = document.querySelector('.status');
 let showScore = document.querySelector('.score');
-let displayWhole = document.querySelector('.gamePlay');
-
-
 
 let scoreBoard = {
     wins: 0,
@@ -15,9 +12,17 @@ let scoreBoard = {
     ties: 0
 }
 
+showScore.innerHTML = `<p> Wins: ${scoreBoard.wins} </p> <p> Losses: ${scoreBoard.losses} </p> <p> Ties: ${scoreBoard.ties} </p>`
+
 
 function resetGame() {
-    window.location.reload();
+    scoreBoard = {
+        wins: 0,
+        losses: 0,
+        ties: 0
+    }
+
+    showScore.innerHTML = `<p> Wins: ${scoreBoard.wins} </p> <p> Losses: ${scoreBoard.losses} </p> <p> Ties: ${scoreBoard.ties} </p>`
 }
 
 function genBotMove() {
@@ -36,17 +41,41 @@ function genBotMove() {
     }
 }
 
-function findWinner(user,bot) {
-    showGame.innerHTML = `You <img src=${userImage}> Bot <img src=${botImage}>`
+function setUser(user) {
+    if (user == 'rock') {
+        userInput = 'rock';
+        userImage = 'images/rock-emoji.png'
 
-    if (user == bot) {
+        findWinner();
+    }
+
+    if (user == 'paper') {
+        userInput = 'paper';
+        userImage = 'images/paper-emoji.png';
+
+        findWinner();
+    }
+
+    if (user == 'scissor') {
+        userInput = 'scissor';
+        userImage = 'images/scissors-emoji.png';
+        
+        findWinner();
+    }
+}
+
+function findWinner() {
+    genBotMove();
+    showGame.innerHTML = `You <img src=${userImage}> Bot <img src=${botImage}>`;
+
+    if (userInput == botInput) {
         showStatus.innerHTML = "Its a tie";
         scoreBoard.ties++;
     }
 
     else {
-        if (user == 'rock') {
-            if (bot == 'scissor') {
+        if (userInput == 'rock') {
+            if (botInput == 'scissor') {
                 showStatus.innerHTML = "You won!";
                 scoreBoard.wins++;
             }
@@ -58,8 +87,8 @@ function findWinner(user,bot) {
         }
 
 
-        if (user == 'paper') {
-            if (bot == 'rock') {
+        if (userInput == 'paper') {
+            if (botInput == 'rock') {
                 showStatus.innerHTML = "You won!";
                 scoreBoard.wins++;
             }
@@ -71,8 +100,8 @@ function findWinner(user,bot) {
             }
         }
 
-        if (user == 'scissor') {
-            if (bot == 'paper') {
+        if (userInput == 'scissor') {
+            if (botInput == 'paper') {
                 showStatus.innerHTML = "You won!";
                 scoreBoard.wins++;
             } 
@@ -91,25 +120,22 @@ window.addEventListener('keydown', (event) => {
     if (event.key == 1) {
         userInput = 'rock';
         userImage = 'images/rock-emoji.png'
-        genBotMove();
 
-        findWinner(userInput, botInput);
+        findWinner();
     }
 
     if (event.key == 2) {
         userInput = 'paper';
         userImage = 'images/paper-emoji.png';
-        genBotMove();
 
-        findWinner(userInput, botInput);
+        findWinner();
     }
 
 
     if (event.key == 3) {
         userInput = 'scissor';
         userImage = 'images/scissors-emoji.png';
-        genBotMove();
         
-        findWinner(userInput, botInput);
+        findWinner();
     }
 })
